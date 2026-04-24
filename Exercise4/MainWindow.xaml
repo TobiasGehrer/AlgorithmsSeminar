@@ -1,0 +1,25 @@
+﻿<Window x:Class="Exercise4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wf="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+        Title="Euler Graph Viewer" Height="650" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="8">
+            <Button Content="📂 Datei laden"       Click="LoadFile_Click"   Margin="4" Padding="8,4"/>
+            <Button Content="🔍 Euler prüfen"      Click="CheckEuler_Click" Margin="4" Padding="8,4"/>
+            <Button Content="🛤 Eulerpfad anzeigen" Click="ShowPath_Click"   Margin="4" Padding="8,4"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" BorderBrush="#CCC" BorderThickness="1" Margin="8">
+            <wf:WindowsFormsHost x:Name="GraphHost"/>
+        </Border>
+
+        <TextBlock Grid.Row="2" x:Name="StatusText" Margin="8,4" FontSize="13"/>
+    </Grid>
+</Window>

@@ -2,4 +2,5 @@
   <Project Path="Exercise01/Exercise01.csproj" />
   <Project Path="Exercise02/Exercise02.csproj" Id="4e66bc48-11bb-404a-8593-4200fe95adac" />
   <Project Path="Exercise03/Exercise03.csproj" Id="ccc78166-2503-4cee-9a06-5a70d2763e3e" />
+  <Project Path="Exercise4/Exercise04.csproj" Id="480b94a6-ba70-4973-98d1-525dd9965fa2" />
 </Solution>

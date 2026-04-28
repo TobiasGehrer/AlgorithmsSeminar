@@ -85,4 +85,37 @@ public partial class MainWindow : Window
 
         _viewer.Graph = mg;
     }
+
+    // Exercise05
+
+    private void DfsRec_Click(object sender, RoutedEventArgs e)
+    {
+        RunTraversal(TraversalMode.DfsRecursive);
+    }
+
+    private void DfsIter_Click(object sender, RoutedEventArgs e)
+    {
+        RunTraversal(TraversalMode.DfsIterative);
+    }
+
+    private void Bfs_Click(object sender, RoutedEventArgs e)
+    {
+        RunTraversal(TraversalMode.Bfs);
+    }
+
+    private void RunTraversal(TraversalMode mode)
+    {
+        string? target = string.IsNullOrWhiteSpace(SearchInput.Text) ? null : SearchInput.Text.Trim();
+        var result = GraphTraversal.Search(_graph, target, mode);
+
+        StatusText.Text = result.Found
+            ? $"✔ '{result.FoundNode}' gefunden | Reihenfolge: {string.Join(" → ", result.VisitedNodes)}"
+            : target != null
+                ? $"✘ '{target}' nicht gefunden | Traversiert: {string.Join(" → ", result.VisitedNodes)}"
+                : $"Traversiert: {string.Join(" → ", result.VisitedNodes)}";
+
+        MetricsText.Text = $"Expandiert: {result.ExpandedNodes} | " +
+                           $"Max. Tiefe: {result.MaxDepth} | " +
+                           $"Max. OpenList: {result.MaxOpenListSize}";
+    }
 }

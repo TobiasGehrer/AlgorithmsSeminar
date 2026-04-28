@@ -20,6 +20,17 @@
             <wf:WindowsFormsHost x:Name="GraphHost"/>
         </Border>
 
-        <TextBlock Grid.Row="2" x:Name="StatusText" Margin="8,4" FontSize="13"/>
+        <StackPanel Grid.Row="2" Margin="8,4">
+            <StackPanel Orientation="Horizontal" Margin="0,4">
+                <TextBox x:Name="SearchInput" Width="150" Margin="4,0" />
+                <Button Content="DFS Rekursiv"  Click="DfsRec_Click"  Margin="4,0" Padding="8,4"/>
+                <Button Content="DFS Iterativ"  Click="DfsIter_Click" Margin="4,0" Padding="8,4"/>
+                <Button Content="BFS"           Click="Bfs_Click"     Margin="4,0" Padding="8,4"/>
+            </StackPanel>
+            <TextBlock x:Name="StatusText" Margin="4" FontSize="13"/>
+            <TextBlock x:Name="MetricsText" Margin="4" FontSize="12" Foreground="Gray"/>
+        </StackPanel>
+
+        <!--<TextBlock Grid.Row="2" x:Name="StatusText" Margin="8,4" FontSize="13"/>-->
     </Grid>
 </Window>

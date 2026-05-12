@@ -26,10 +26,18 @@
                 <Button Content="DFS Rekursiv"  Click="DfsRec_Click"  Margin="4,0" Padding="8,4"/>
                 <Button Content="DFS Iterativ"  Click="DfsIter_Click" Margin="4,0" Padding="8,4"/>
                 <Button Content="BFS"           Click="Bfs_Click"     Margin="4,0" Padding="8,4"/>
+
+                <TextBox x:Name="StartNodeInput" Width="100" Margin="4,0"/>
+                <Button Content="🗺 Dijkstra" Click="Dijkstra_Click" Margin="4,0" Padding="8,4"/>
+                <Button Content="🌲 Prim"     Click="Prim_Click"     Margin="4,0" Padding="8,4"/>
             </StackPanel>
             <TextBlock x:Name="StatusText" Margin="4" FontSize="13"/>
             <TextBlock x:Name="MetricsText" Margin="4" FontSize="12" Foreground="Gray"/>
+            
         </StackPanel>
+
+        
+
 
         <!--<TextBlock Grid.Row="2" x:Name="StatusText" Margin="8,4" FontSize="13"/>-->
     </Grid>

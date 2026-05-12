@@ -18,11 +18,11 @@ public class Graph
         }
     }
 
-    public void AddEdge(string from, string to, object? value = null)
+    public void AddEdge(string from, string to, double weight = 1.0, object? value = null)
     {
         AddNode(from);
         AddNode(to);
-        Edges.Add(new EdgeData(from, to, value));
+        Edges.Add(new EdgeData(from, to, weight, value));
         _adj[from].Add(to);
         _adj[to].Add(from);
     }
@@ -64,7 +64,9 @@ public class Graph
 
                 if (p.Length >= 2)
                 {
-                    AddEdge(p[0], p[1], p.Length > 2 ? p[2] : null);
+                    double weight = p.Length >= 3 && double.TryParse(p[2], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var w) ? w : 1.0;
+                    object? val = p.Length >= 4 ? p[3] : null;
+                    AddEdge(p[0], p[1], weight, val);
                 }
             }
         }

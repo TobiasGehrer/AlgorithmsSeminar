@@ -118,4 +118,63 @@ public partial class MainWindow : Window
                            $"Max. Tiefe: {result.MaxDepth} | " +
                            $"Max. OpenList: {result.MaxOpenListSize}";
     }
+
+    private void Dijkstra_Click(object sender, RoutedEventArgs e) =>
+    RunSpanningTree(new DijkstraRelaxation(), "Dijkstra");
+
+    private void Prim_Click(object sender, RoutedEventArgs e) =>
+        RunSpanningTree(new PrimRelaxation(), "Prim");
+
+    private void RunSpanningTree(IRelaxation relaxation, string label)
+    {
+        string start = string.IsNullOrWhiteSpace(StartNodeInput.Text)
+            ? _graph.Nodes.Keys.FirstOrDefault() ?? ""
+            : StartNodeInput.Text.Trim();
+
+        if (!_graph.Nodes.ContainsKey(start))
+        {
+            StatusText.Text = $"Knoten '{start}' nicht gefunden.";
+            return;
+        }
+
+        var result = SpanningTreeAlgorithm.Run(_graph, start, relaxation);
+        RenderSpanningTree(result);
+
+        var info = string.Join(", ", result.NodeInfos
+            .Select(kv => $"{kv.Key}={kv.Value.Distance:0.#}"));
+        StatusText.Text = $"{label} ab '{start}': {info}";
+    }
+
+    private void RenderSpanningTree(SpanningTreeResult result)
+    {
+        var mg = new MsaglGraph();
+        var treeEdgeSet = result.TreeEdges
+            .Select(e => (e.From, e.To))
+            .ToHashSet();
+
+        foreach (var edge in _graph.Edges)
+        {
+            var e = mg.AddEdge(edge.From, edge.To);
+            e.Attr.ArrowheadAtTarget = ArrowStyle.None;
+            bool isTree = treeEdgeSet.Contains((edge.From, edge.To))
+                       || treeEdgeSet.Contains((edge.To, edge.From));
+            e.Attr.Color = isTree ? Microsoft.Msagl.Drawing.Color.Blue : Microsoft.Msagl.Drawing.Color.LightGray;
+            e.Attr.LineWidth = isTree ? 3 : 1;
+            e.LabelText = edge.Weight.ToString("0.#");
+        }
+
+        foreach (var (node, info) in result.NodeInfos)
+        {
+            var n = mg.FindNode(node);
+            if (n != null)
+            {
+                n.LabelText = $"{node}\n{info.Distance:0.#}";
+                n.Attr.FillColor = info.Predecessor == null
+                    ? Microsoft.Msagl.Drawing.Color.LightGreen
+                    : Microsoft.Msagl.Drawing.Color.LightBlue;
+            }
+        }
+
+        _viewer.Graph = mg;
+    }
 }
